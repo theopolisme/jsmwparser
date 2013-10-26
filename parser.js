@@ -13,8 +13,8 @@
  */
 function getTemplates(string,brave,toplevelonly) {
 	var copy = string;
-	copy = copy.replace(/<\s*nowiki\s*>(.*?(?:<\s*\/\s*nowiki\s*>)|.*$)/g,''); // Remove code inside nowikis; just plaintext
-	var chars = copy.split('');
+	var copy_cleared = copy.replace(/<\s*nowiki\s*>(.*?(?:<\s*\/\s*nowiki\s*>)|.*$)/g,function(a){ return a.replace(/./gi,'#'); }); // Remove code inside nowikis; just plaintext
+	var chars = copy_cleared.split('');
 	var openings = [];
 	var closings = [];
 	$.each(chars, function(index,character) {
@@ -113,7 +113,7 @@ function parseTemplate(templatecode,returntitle) {
 function testGetter() {
 	var tests = [
 		"{{foobaz|{{biz}}}}",
-		"{{This is a template|1=yf {{tesdjkhjsl}} }}\nHere we sa{{heaven|head=e {{eggs|ea {{ah}} }} }}uy some more\n\n{{help me|I don\'t get how to use {{tl|cite web}}, since it\'s a confusing template.}}",
+		"{{This is a template|1=yf <nowiki>egad</nowiki> {{tesdjkhjsl}} }}\nHere we sa{{heaven|head=e {{eggs|ea {{ah}} }} }}uy some more\n\n{{help me|I don\'t get how to use {{tl|cite web}}, since it\'s a confusing template.}}",
 		"{{This template is normal|{{hey}}}} but <nowiki>{{this one}} is nowikied!</nowiki>"
 	];
 
