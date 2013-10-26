@@ -88,26 +88,26 @@ function getTemplates(string,brave,toplevelonly) {
  * @return {object/array}                 What is returned is determined by `returntitle`
  */
 function parseTemplate(templatecode,returntitle) {
-    var contents = $.trim(templatecode).replace(/(^\{\{|\}\}$)/g,'');
-    var pieces = contents.split('|');
-    var title = pieces.shift();
-    var params = {};
-    var increm = 1;
-    $.each(pieces, function(index,piece) {
-        if (piece.indexOf('=') != -1) {
-            var varparts = piece.split(/=/);
-            var key = varparts.shift();
-            var val = varparts.join('=');
-            params[key] = val;
-        } else {
-            params[increm.toString()] = piece;
-            increm++;
-        }
-    });
-    if (returntitle)
-        return [title,params];
-    else
-        return params;
+	var contents = $.trim(templatecode).replace(/(^\{\{|\}\}$)/g,'');
+	var pieces = contents.split('|');
+	var title = pieces.shift();
+	var params = {};
+	var increm = 1;
+	$.each(pieces, function(index,piece) {
+		if (piece.indexOf('=') != -1) {
+			var varparts = piece.split(/=/);
+			var key = varparts.shift();
+			var val = varparts.join('=');
+			params[key] = val;
+		} else {
+			params[increm.toString()] = piece;
+			increm++;
+		}
+	});
+	if (returntitle)
+		return [title,params];
+	else
+		return params;
 }
 
 function testGetter() {
@@ -127,7 +127,7 @@ function testParser() {
 	var tests = [
 		"{{AFC submission|ts=20130801124623|d|nn|declinets=20130815023926|decliner=Howicus|ts=20130801131437|u=Pippa.lewis|ns=5}}",
 		"{{This is a template|1=yf}}",
-		"{{This is not a templat|1=jskewhhaa}heaven{}"
+		"{{This is not a template|1=jskewhhaa}heaven{}"
 	];
 
 	for (var i = 0; i < tests.length; i++) {
